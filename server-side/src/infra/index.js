@@ -2,11 +2,11 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('./cors')
 
-const middlewares = express()
+const app = express()
 
-middlewares.use(bodyParser.json())
-middlewares.use(cors)
+app.use(bodyParser.json())
+app.use(cors)
 
-// middlewares.use('/api-mongodb', require('../../modules/login/routes/users'))
+// app.use('/api', require('../../modules/login/routes/users'))
 
-module.exports = middlewares
+module.exports = app

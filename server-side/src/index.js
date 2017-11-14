@@ -1,9 +1,10 @@
 require('dotenv').config()
-require('./infra/database')
+require('./infra/database/sequelize')
 
-// const routes = require('../src/interfaces/http/router.js')
 const app = require('./infra')
 
-// app.use(routes)
+const routes = require('./interfaces/http/routes.js')
+
+app.use(routes)
 
 module.exports = app
