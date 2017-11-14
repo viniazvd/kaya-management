@@ -1,0 +1,40 @@
+{
+  "name": "server-side",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "db:refresh": "sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:all",
+    "migrate": "sequelize db:migrate"
+  },
+  "author": "Vinicius Azevedo <viniazvd@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "awilix": "^2.11.1",
+    "awilix-express": "^0.11.0",
+    "bcrypt": "1.0.3",
+    "body-parser": "1.18.1",
+    "cors": "2.8.4",
+    "cross-env": "5.0.5",
+    "dotenv": "4.0.0",
+    "express": "4.15.4",
+    "jsonwebtoken": "8.0.1",
+    "moment": "2.18.1",
+    "moment-timezone": "0.5.13",
+    "morgan": "1.8.2",
+    "passport": "0.4.0",
+    "passport-jwt": "3.0.0",
+    "pg": "7.3.0",
+    "ramda": "^0.25.0",
+    "sequelize": "4.8.3"
+  },
+  "devDependencies": {
+    "eslint": "^4.8.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "nodemon": "^1.11.0"
+  }
+}
