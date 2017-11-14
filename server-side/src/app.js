@@ -1,7 +1,10 @@
 require('dotenv').config()
-require('./infra/database/sequelize')
 
 const app = require('./infra')
+
+// app.get('/', function(req, res, next) {
+//   res.send('opaaaaaaaa')
+// })
 
 const routes = require('./interfaces/http/routes.js')
 
