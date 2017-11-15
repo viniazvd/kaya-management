@@ -2,6 +2,8 @@ require('dotenv').config()
 
 const app = require('./interfaces/http/server')
 
-// app.use('/api', require('./interfaces/http/routes')(app))
+// const Application = require('../app/Application')
+// const { post, get, put, remove } = require('../app/user')
+// app.use(Application)
 
 module.exports = app

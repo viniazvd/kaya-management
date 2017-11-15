@@ -1,11 +1,15 @@
-// const get = require('./get')
-// const post = require('./post')
-// const put = require('./put')
-// const remove = require('./delete')
+// const users = deps => {
+//   return {
+//     all: () => {
+//       // return new Promise((resolve, reject) => {
+//       const { models } = deps
 
-// module.exports = {
-//   get,
-//   post,
-//   put,
-//   remove
+//       models.user.findAll()
+//         .then((results) => console.log(results))
+
+//         // })
+//     }
+//   }
 // }
+
+// module.exports = users
