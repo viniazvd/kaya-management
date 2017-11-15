@@ -1,13 +1,7 @@
 require('dotenv').config()
 
-const app = require('./infra')
+const app = require('./interfaces/http/server')
 
-// app.get('/', function(req, res, next) {
-//   res.send('opaaaaaaaa')
-// })
-
-const routes = require('./interfaces/http/routes.js')
-
-app.use(routes)
+// app.use('/api', require('./interfaces/http/routes')(app))
 
 module.exports = app
