@@ -1,4 +1,4 @@
-const models = require('../../../infra/database/sequelize/models')
+const models = require('../../database/sequelize/models')
 
 module.exports = function users (server) {
   server.get('/api/user/', async (req, res, next) => {

@@ -1,4 +1,4 @@
-const users = require('./modules/users')
+const users = require('./user')
 
 const routes = (server) => {
   users(server)

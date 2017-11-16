@@ -1,8 +1,8 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const cors = require('../../infra/cors')
+const cors = require('./middlewares/cors')
 
-const models = require('../../infra/database/sequelize/models')
+const models = require('./database/sequelize/models')
 
 const routes = require('./routes')
 
