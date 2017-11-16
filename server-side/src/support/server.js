@@ -2,9 +2,9 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('./middlewares/cors')
 
-const models = require('./database/sequelize/models')
+const models = require('../support/database/sequelize/models')
 
-const routes = require('./routes')
+const routes = require('../units')
 
 models.sequelize.sync()
   .then(() => console.log('database/sequelize: ok'))
