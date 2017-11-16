@@ -1,20 +1,9 @@
-// const service = require('../../domain/customers/services')
-const controller = require('./controller')
+const { listAllUsers, getUser, createUser, updateUser, removeUser } = require('./controller')
 
 module.exports = server => {
-  server.get('/api/user/', controller[0])
-  server.get('/api/user/:id', controller[1])
-  server.post('/api/user', controller[2])
-  server.put('/api/user/:id', controller[3])
-  server.delete('/api/user/:id', controller[4])
+  server.get('/api/user/', listAllUsers)
+  server.get('/api/user/:id', getUser)
+  server.post('/api/user', createUser)
+  server.put('/api/user/:id', updateUser)
+  server.delete('/api/user/:id', removeUser)
 }
-
-// const { listAll, get, create, update, remove } = require('./controller')
-
-// module.exports = server => {
-//   server.get('/api/user/', listAll)
-//   server.get('/api/user/:id', get)
-//   server.post('/api/user', create)
-//   server.put('/api/user/:id', update)
-//   server.delete('/api/user/:id', remove)
-// }

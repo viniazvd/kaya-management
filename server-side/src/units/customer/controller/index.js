@@ -8,6 +8,6 @@ const remove = require('./remove')
 
 const controllers = [ listAll, get, create, update, remove ]
 
-const listControllers = controllers.map(controller => controller(service))
+const [ listAllUsers, getUser, createUser, updateUser, removeUser ] = controllers.map(controller => controller(service))
 
-module.exports = { ...listControllers }
+module.exports = { listAllUsers, getUser, createUser, updateUser, removeUser }
