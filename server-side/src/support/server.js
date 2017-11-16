@@ -2,7 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('./middlewares/cors')
 
-const models = require('../support/database/sequelize/models')
+const models = require('../infra/database/sequelize/models')
 models.sequelize.sync()
   .then(() => console.log('database/sequelize: ok'))
   .catch(() => console.log('database/sequelize: erro'))

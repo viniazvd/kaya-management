@@ -2,41 +2,41 @@ const service = require('../../../domain/customers/services')
 
 let controller = {}
 
-controller.listAllCustomers = (req, res) => {
-  service.listAllCustomers()
+controller.listAll = (req, res) => {
+  service.listAll()
     .then(results => res.status(200).send(results))
     .catch(error => res.status(404).send(error))
 }
 
-controller.getCustomer = (req, res) => {
+controller.get = (req, res) => {
   const id = req.params.id
 
-  service.getCustomer(id)
+  service.get(id)
     .then(results => res.status(200).send(results))
     .catch(error => res.status(404).send(error))
 }
 
-controller.newCustomer = (req, res) => {
+controller.new = (req, res) => {
   const { name, email, password } = req.body
 
-  service.newCustomer(name, email, password)
+  service.new(name, email, password)
     .then(results => res.status(200).send(results))
     .catch(error => res.status(404).send(error))
 }
 
-controller.updateCustomer = (req, res) => {
+controller.update = (req, res) => {
   const id = req.params.id
   const { name, email, password } = req.body
 
-  service.updateCustomer(id, name, email, password)
+  service.update(id, name, email, password)
     .then(results => res.status(200).send(results))
     .catch(error => res.status(404).send(error))
 }
 
-controller.removeCustomer = (req, res) => {
+controller.remove = (req, res) => {
   const id = req.params.id
 
-  service.removeCustomer(id)
+  service.remove(id)
     .then(results => res.status(200).send(results))
     .catch(error => res.status(404).send(error))
 }
