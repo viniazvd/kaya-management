@@ -4,9 +4,9 @@ module.exports = function users (server) {
   server.get('/api/user/', async (req, res, next) => {
     try {
       const users = models.user.findAll()
-      res.send(await users)
+      res.status(200).send(await users)
     } catch (error) {
-      res.status(422).send(error)
+      res.send(422, error)
     }
     next()
   })
@@ -16,9 +16,9 @@ module.exports = function users (server) {
 
     try {
       const user = models.user.findById(id)
-      res.send(await user)
+      res.status(200).send(await user)
     } catch (error) {
-      res.status(422).send(error)
+      res.send(422, error)
     }
     next()
   })
@@ -29,9 +29,9 @@ module.exports = function users (server) {
 
     try {
       const user = newUser.save()
-      res.send(await user)
+      res.status(200).send(await user)
     } catch (error) {
-      res.status(422).send(error)
+      res.send(422, error)
     }
     next()
   })
@@ -42,9 +42,9 @@ module.exports = function users (server) {
 
     try {
       const updateUser = models.user.update({ name, email, password }, { where: { id } })
-      res.send(await updateUser)
+      res.status(200).send(await updateUser)
     } catch (error) {
-      res.status(422).send(error)
+      res.send(422, error)
     }
     next()
   })
@@ -54,9 +54,9 @@ module.exports = function users (server) {
 
     try {
       const deleteUser = models.user.destroy({ where: { id } })
-      res.send(await deleteUser)
+      res.status(200).send(await deleteUser)
     } catch (error) {
-      res.status(422).send(error)
+      res.send(422, error)
     }
     next()
   })
