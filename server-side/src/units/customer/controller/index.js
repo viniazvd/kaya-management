@@ -2,13 +2,13 @@ const service = require('../../../domain/customers/services')
 
 let controller = {}
 
-controller.listAllCustomers = async (req, res) => {
+controller.listAllCustomers = (req, res) => {
   service.listAllCustomers()
     .then(results => res.status(200).send(results))
     .catch(error => res.status(404).send(error))
 }
 
-controller.getCustomer = async (req, res) => {
+controller.getCustomer = (req, res) => {
   const id = req.params.id
 
   service.getCustomer(id)
@@ -16,7 +16,7 @@ controller.getCustomer = async (req, res) => {
     .catch(error => res.status(404).send(error))
 }
 
-controller.newCustomer = async (req, res) => {
+controller.newCustomer = (req, res) => {
   const { name, email, password } = req.body
 
   service.newCustomer(name, email, password)
@@ -24,7 +24,7 @@ controller.newCustomer = async (req, res) => {
     .catch(error => res.status(404).send(error))
 }
 
-controller.updateCustomer = async (req, res) => {
+controller.updateCustomer = (req, res) => {
   const id = req.params.id
   const { name, email, password } = req.body
 
@@ -33,7 +33,7 @@ controller.updateCustomer = async (req, res) => {
     .catch(error => res.status(404).send(error))
 }
 
-controller.removeCustomer = async (req, res) => {
+controller.removeCustomer = (req, res) => {
   const id = req.params.id
 
   service.removeCustomer(id)

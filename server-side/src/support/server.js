@@ -8,7 +8,6 @@ models.sequelize.sync()
   .catch(() => console.log('database/sequelize: erro'))
 
 const app = express()
-
 app.use(bodyParser.json())
 app.use(cors)
 
