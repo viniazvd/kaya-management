@@ -1,7 +1,7 @@
-const users = require('./customer')
+const customer = require('./customer')
 
 const routes = (server) => {
-  users(server)
+  customer(server)
 }
 
 module.exports = routes
