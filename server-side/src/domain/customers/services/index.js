@@ -12,7 +12,7 @@ services.get = async (id) => {
   return user
 }
 
-services.new = async (name, email, password) => {
+services.create = async (name, email, password) => {
   const newUser = models.user.build({ name, email, password })
 
   const user = newUser.save()
