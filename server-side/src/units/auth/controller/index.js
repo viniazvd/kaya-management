@@ -1,8 +1,13 @@
-// const { listAllUsers, getUser, createUser, updateUser, removeUser } = require('./controller')
+const service = require('../../../domain').auth.services
 
-// module.exports = server => {
-//   server.post('/api/authenticate', createUser)
-//   server.get('/api/logout/', listAllUsers)
-//   server.post('/api/change-password', createUser)
-//   server.post('/api/email-forget-password', createUser)
-// }
+const signup = require('./signup')
+
+const controllers = [
+  signup
+]
+
+const [
+  signupUser
+] = controllers.map(controller => controller(service))
+
+module.exports = { signupUser }
