@@ -1,25 +1,7 @@
-const service = require('../../../domain').customers.services
+const { services } = require('../../../domain').customers
 
-const listAll = require('./listAll')
-const get = require('./get')
-const create = require('./create')
-const update = require('./update')
-const remove = require('./remove')
+const [all, one, create, update, remove] = ['all', 'one', 'create', 'update', 'remove']
+  .map(actionName => require(`./${actionName}`))
+  .map(action => action(services))
 
-const controllers = [
-  listAll,
-  get,
-  create,
-  update,
-  remove
-]
-
-const [
-  listAllUsers,
-  getUser,
-  createUser,
-  updateUser,
-  removeUser
-] = controllers.map(controller => controller(service))
-
-module.exports = { listAllUsers, getUser, createUser, updateUser, removeUser }
+module.exports = { all, one, create, update, remove }

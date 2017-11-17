@@ -2,12 +2,12 @@ const models = require('../../../infra/database/sequelize/models')
 
 let services = {}
 
-services.listAll = async () => {
+services.all = async () => {
   const users = await models.user.findAll()
   return users
 }
 
-services.get = async (id) => {
+services.one = async (id) => {
   const user = models.user.findById(id)
   return user
 }

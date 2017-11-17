@@ -1,9 +1,9 @@
-const { listAllUsers, getUser, createUser, updateUser, removeUser } = require('./controller')
+const { all, one, create, update, remove } = require('./controller')
 
 module.exports = server => {
-  server.get('/api/user/', listAllUsers)
-  server.get('/api/user/:id', getUser)
-  server.post('/api/user', createUser)
-  server.put('/api/user/:id', updateUser)
-  server.delete('/api/user/:id', removeUser)
+  server.get('/api/user/', all)
+  server.get('/api/user/:id', one)
+  server.post('/api/user', create)
+  server.put('/api/user/:id', update)
+  server.delete('/api/user/:id', remove)
 }
