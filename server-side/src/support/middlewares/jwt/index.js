@@ -10,8 +10,6 @@ module.exports = (deps) => {
         return false
       }
 
-      return token
-
       // try {
       //   req.decoded = jwt.verify(token, process.env.JWT_SECRET)
       // } catch (error) {

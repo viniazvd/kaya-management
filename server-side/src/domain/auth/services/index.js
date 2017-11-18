@@ -36,4 +36,14 @@ services.signin = async (email, password) => {
   return { token: token }
 }
 
+services.changePassword = async (email, password) => {
+  const user = await models.user.findOne({ where: { email } })
+  if (!user) {
+    return { msg: 'E-mail não existe.' }
+  }
+
+  await models.user.update({ password }, { where: { email } })
+  return { msg: 'Senha alterada com sucesso!' }
+}
+
 module.exports = services
