@@ -1,8 +1,8 @@
-const bcrypt = require('bcryptjs')
+const bcrypt = require('bcrypt')
 
-module.exports = async function (newPassword) {
+module.exports = async (newPassword, password) => {
   try {
-    return await bcrypt.compare(newPassword, this.password)
+    return await bcrypt.compare(newPassword, password)
   } catch (error) {
     throw new Error(error)
   }

@@ -1,6 +1,10 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('./middlewares/cors')
+const helmet = require('helmet')
+// const jwt = require('../jwt')
+
+require('./auth/passport')
 
 const models = require('../infra/database/sequelize/models')
 models.sequelize.sync()
@@ -10,6 +14,10 @@ models.sequelize.sync()
 const app = express()
 app.use(bodyParser.json())
 app.use(cors)
+app.use(helmet())
+
+// const exclusions = ['/autenticacao']
+// app.use(jwt({ exclusions }))
 
 const routes = require('../units')
 routes(app)

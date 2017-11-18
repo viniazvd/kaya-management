@@ -1,9 +1,9 @@
-const JWT = require('jsonwebtoken')
+const jwt = require('jsonwebtoken')
 
 module.exports = user => {
-  return JWT.sign({
+  return jwt.sign({
     iss: 'kaya',
-    sub: user.id,
+    sub: user.password,
     iat: new Date().getTime(),
     exp: new Date().getTime() / 1000 + 60 * 60
   }, process.env.JWT_SECRET_TOKEN)

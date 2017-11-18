@@ -1,13 +1,7 @@
-const service = require('../../../domain').auth.services
+const { services } = require('../../../domain').auth
 
-const signup = require('./signup')
+const [signup, signin] = ['signup', 'signin']
+  .map(controller => require(`./${controller}`))
+  .map(inject => inject(services))
 
-const controllers = [
-  signup
-]
-
-const [
-  signupUser
-] = controllers.map(controller => controller(service))
-
-module.exports = { signupUser }
+module.exports = { signup, signin }

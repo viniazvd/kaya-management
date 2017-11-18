@@ -1,20 +1,17 @@
-// const passport = require('passport')
+const passport = require('passport')
 // const JwtStrategy = require('passport-jwt').Strategy
 // const { ExtractJwt } = require('passport-jwt')
-// const LocalStrategy = require('passport-local').Strategy
-// const User = require('../../modules/login/models/user')
-// const { JWT_SECRET } = require('../env/configs')
-
-// // const options = {}
-// // options.jwtFromRequest = ExtractJwt.fromHeader('x-access-token')
-// // options.setOrKey = process.env.JWT_SECRET_TOKENcre
+const LocalStrategy = require('passport-local').Strategy
+const models = require('../../infra/database/sequelize/models')
+// const isValidPassword = require('./isValidPassword')
+const { isValidPassword } = require('../middlewares/encryption')
 
 // passport.use(new JwtStrategy({
 //   jwtFromRequest: ExtractJwt.fromHeader('x-access-token'),
-//   secretOrKey: JWT_SECRET
+//   secretOrKey: process.env.JWT_SECRET_TOKEN
 // }, async (payload, done) => {
 //   try {
-//     const user = await User.findById(payload.sub)
+//     const user = await models.user.findOne({ where: { email: payload.sub } })
 
 //     if (!user) {
 //       return done(null, false)
@@ -26,24 +23,28 @@
 //   }
 // }))
 
-// passport.use(new LocalStrategy({
-//   usernameField: 'email'
-// }, async (email, password, done) => {
-//   try {
-//     const user = await User.findOne({ email })
+passport.use(new LocalStrategy({
+  usernameField: 'email',
+  session: false
+}, async (email, password, done) => {
+  try {
+    // const user = await models.user.findOne({ email })
+    const user = await models.user.findOne({ where: { email } })
+    const currentPassword = user.dataValues.password
 
-//     if (!user) {
-//       return done(null, false)
-//     }
+    if (!user) {
+      return done(null, false)
+    }
 
-//     const isMatch = await user.isValidPassword(password)
+    // console.log('currentPassword', currentPassword, 'password', password)
+    const isMatch = await isValidPassword(password, currentPassword)
 
-//     if (!isMatch) {
-//       return done(null, false)
-//     }
+    if (!isMatch) {
+      return done(null, false)
+    }
 
-//     done(null, user)
-//   } catch (error) {
-//     done(error, false)
-//   }
-// }))
+    done(null, user)
+  } catch (error) {
+    done(error, false)
+  }
+}))
