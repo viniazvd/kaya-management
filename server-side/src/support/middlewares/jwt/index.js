@@ -1,8 +1,8 @@
-const jwt = require('jsonwebtoken')
+// const jwt = require('jsonwebtoken')
 
 module.exports = (deps) => {
   return async (req, res, next) => {
-    if (!deps.exclusions.includes(req.href())) {
+    if (!deps.exclusions.includes(req.path)) {
       const token = req.headers['x-access-token']
 
       if (!token) {
@@ -10,12 +10,14 @@ module.exports = (deps) => {
         return false
       }
 
-      try {
-        req.decoded = jwt.verify(token, process.env.JWT_SECRET)
-      } catch (error) {
-        res.send(403, { error: 'Falha ao autenticar o token' })
-        return false
-      }
+      return token
+
+      // try {
+      //   req.decoded = jwt.verify(token, process.env.JWT_SECRET)
+      // } catch (error) {
+      //   res.send(403, { error: 'Falha ao autenticar o token' })
+      //   return false
+      // }
     }
 
     next()

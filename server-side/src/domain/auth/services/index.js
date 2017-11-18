@@ -1,9 +1,7 @@
 const models = require('../../../infra/database/sequelize/models')
-// const sha1 = require('sha1')
 const tokenGenerator = require('../../../support/auth/token-generator')
 const hashing = require('../../../support/auth/hashing')
-const isValidPassword = require('../../../support/auth/isValidPassword')
-// const { encryptPassword } = require('../../../support/middlewares/encryption')
+const isValid = require('../../../support/auth/isValid')
 
 let services = {}
 
@@ -15,13 +13,10 @@ services.signup = async (name, email, password) => {
 
   const passwordEncrypted = await hashing(password)
 
-  // const newUser = await models.user.build({ name, email, password: sha1(password) })
   const newUser = await models.user.build({ name, email, password: passwordEncrypted })
   await newUser.save()
 
-  const token = tokenGenerator(newUser)
-
-  return { token: token }
+  return { user: newUser }
 }
 
 services.signin = async (email, password) => {
@@ -30,13 +25,15 @@ services.signin = async (email, password) => {
     return { msg: 'E-mail não existe.' }
   }
 
-  const isMatch = await isValidPassword(password, user.password)
+  const isMatch = await isValid(password, user.password)
 
   if (!isMatch) {
     return { msg: 'Senha inválida.' }
   }
 
-  return 'Autorizado'
+  const token = tokenGenerator(user)
+
+  return { token: token }
 }
 
 module.exports = services

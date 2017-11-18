@@ -2,9 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('./middlewares/cors')
 const helmet = require('helmet')
-// const jwt = require('../jwt')
-
-require('./auth/passport')
+const jwt = require('./middlewares/jwt')
 
 const models = require('../infra/database/sequelize/models')
 models.sequelize.sync()
@@ -16,8 +14,8 @@ app.use(bodyParser.json())
 app.use(cors)
 app.use(helmet())
 
-// const exclusions = ['/autenticacao']
-// app.use(jwt({ exclusions }))
+const exclusions = ['/api/auth/signin', '/api/auth/signup']
+app.use(jwt({ exclusions }))
 
 const routes = require('../units')
 routes(app)
