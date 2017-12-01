@@ -3,47 +3,53 @@ const tokenGenerator = require('../../../support/auth/token-generator')
 const hashing = require('../../../support/auth/hashing')
 const isValid = require('../../../support/auth/isValid')
 
-let services = {}
+module.exports = {
+  signup: async (name, email, password) => {
+    const foundUser = await models.user.findOne({ where: { email } })
+    if (foundUser) {
+      return { msg: 'E-mail já existe. Tente se registrar com outro.' }
+    }
 
-services.signup = async (name, email, password) => {
-  const foundUser = await models.user.findOne({ where: { email } })
-  if (foundUser) {
-    return { msg: 'E-mail já existe. Tente se registrar com outro.' }
+    const passwordEncrypted = await hashing(password)
+
+    const newUser = await models.user.build({ name, email, password: passwordEncrypted })
+    await newUser.save()
+
+    return { user: newUser }
+  },
+
+  signin: async (email, password) => {
+    const user = await models.user.findOne({ where: { email } })
+    if (!user) {
+      return { msg: 'E-mail não existe.' }
+    }
+
+    const isMatch = await isValid(password, user.password)
+
+    if (!isMatch) {
+      return { msg: 'Senha inválida.' }
+    }
+
+    const token = tokenGenerator(user)
+
+    return { token: token }
+  },
+
+  changePassword: async (email, password, newPassword) => {
+    const hasEmail = await models.user.findOne({ where: { email } })
+    if (!hasEmail) {
+      return { msg: 'E-mail não existe.' }
+    }
+
+    const isMatch = await isValid(password, hasEmail.dataValues.password)
+
+    if (!isMatch) {
+      return { msg: 'Senha inválida.' }
+    }
+
+    const passwordEncrypted = await hashing(newPassword)
+
+    await models.user.update({ password: passwordEncrypted }, { where: { email } })
+    return { msg: 'Senha alterada com sucesso!' }
   }
-
-  const passwordEncrypted = await hashing(password)
-
-  const newUser = await models.user.build({ name, email, password: passwordEncrypted })
-  await newUser.save()
-
-  return { user: newUser }
 }
-
-services.signin = async (email, password) => {
-  const user = await models.user.findOne({ where: { email } })
-  if (!user) {
-    return { msg: 'E-mail não existe.' }
-  }
-
-  const isMatch = await isValid(password, user.password)
-
-  if (!isMatch) {
-    return { msg: 'Senha inválida.' }
-  }
-
-  const token = tokenGenerator(user)
-
-  return { token: token }
-}
-
-services.changePassword = async (email, password) => {
-  const user = await models.user.findOne({ where: { email } })
-  if (!user) {
-    return { msg: 'E-mail não existe.' }
-  }
-
-  await models.user.update({ password }, { where: { email } })
-  return { msg: 'Senha alterada com sucesso!' }
-}
-
-module.exports = services
