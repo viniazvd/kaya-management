@@ -1,34 +1,34 @@
-const models = require('../../../infra/database/sequelize/models')
-const tokenGenerator = require('../../../support/auth/token-generator')
-const hashing = require('../../../support/auth/hashing')
-const isValid = require('../../../support/auth/isValid')
+const models = require('../../../support/sequelize/models')
+const tokenGenerator = require('../../../support/sign-token')
+const encrypt = require('../../../support/encrypt')
+const isValid = require('../../../support/compare-passwords')
 
 module.exports = {
-  signup: async (name, email, password) => {
-    const foundUser = await models.user.findOne({ where: { email } })
-    if (foundUser) {
-      return { msg: 'E-mail já existe. Tente se registrar com outro.' }
-    }
+  async signup (name, email, password) {
+    const exist = await models.user.findOne({ where: { email } })
 
-    const passwordEncrypted = await hashing(password)
+    if (exist) throw new Error(`${email} já existe. Tente se registrar com outro e-mail.`)
+
+    const passwordEncrypted = await encrypt(password).catch(() => {
+      throw new Error(`Failed to encrypt.`)
+    })
 
     const newUser = await models.user.build({ name, email, password: passwordEncrypted })
-    await newUser.save()
+    await newUser.save().catch(() => {
+      throw new Error(`Failed to register user.`)
+    })
 
-    return { user: newUser }
+    return ({ user: newUser })
   },
 
-  signin: async (email, password) => {
+  async signin (email, password) {
     const user = await models.user.findOne({ where: { email } })
-    if (!user) {
-      return { msg: 'E-mail não existe.' }
-    }
+
+    if (!user) throw new Error(`${email} não existe. Tente logar com outro e-mail.`)
 
     const isMatch = await isValid(password, user.password)
 
-    if (!isMatch) {
-      return { msg: 'Senha inválida.' }
-    }
+    if (!isMatch) throw new Error('Senha inválida')
 
     const token = tokenGenerator(user)
 
@@ -36,20 +36,22 @@ module.exports = {
   },
 
   changePassword: async (email, password, newPassword) => {
-    const hasEmail = await models.user.findOne({ where: { email } })
-    if (!hasEmail) {
-      return { msg: 'E-mail não existe.' }
-    }
+    const user = await models.user.findOne({ where: { email } })
 
-    const isMatch = await isValid(password, hasEmail.dataValues.password)
+    if (!user) throw new Error(`${email} não existe. Tente usar outro e-mail.`)
 
-    if (!isMatch) {
-      return { msg: 'Senha inválida.' }
-    }
+    const isMatch = await isValid(password, user.dataValues.password)
 
-    const passwordEncrypted = await hashing(newPassword)
+    if (!isMatch) throw new Error('Senha inválida')
 
-    await models.user.update({ password: passwordEncrypted }, { where: { email } })
+    const passwordEncrypted = await encrypt(newPassword).catch(() => {
+      throw new Error(`Failed to encrypt.`)
+    })
+
+    await models.user.update({ password: passwordEncrypted }, { where: { email } }).catch(() => {
+      throw new Error(`Failed to update password.`)
+    })
+
     return { msg: 'Senha alterada com sucesso!' }
   }
 }

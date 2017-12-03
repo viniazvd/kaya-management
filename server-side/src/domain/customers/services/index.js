@@ -1,27 +1,59 @@
-const models = require('../../../infra/database/sequelize/models')
+const models = require('../../../support/sequelize/models')
 
-let services = {}
+module.exports = {
+  async all () {
+    const users = await models.user.findAll().catch(() => {
+      throw new Error(`Failed to find all users.`)
+    })
 
-services.all = async () => {
-  return models.user.findAll()
+    return { users }
+  },
+
+  async one (id) {
+    const user = await models.user.findById(id).catch(() => {
+      throw new Error(`Failed to find user.`)
+    })
+
+    if (!user) throw new Error(`Usuário com ID: ${id} não existe.`)
+
+    return { user }
+  },
+
+  async create (name, email, password) {
+    const newUser = await models.user.build({ name, email, password })
+
+    await newUser.save().catch(() => {
+      throw new Error(`Failed to find all users.`)
+    })
+
+    return ({ newUser })
+  },
+
+  async update (id, name, email, password) {
+    const exist = await models.user.findById(id).catch(() => {
+      throw new Error(`Failed to find user.`)
+    })
+
+    if (!exist) throw new Error(`Usuário com ID: ${id} não existe.`)
+
+    await models.user.update({ name, email, password }, { where: { id } }).catch(() => {
+      throw new Error(`Failed to update user.`)
+    })
+
+    return (`Usuário alterado com sucesso.`)
+  },
+
+  async remove (id) {
+    const exist = await models.user.findById(id).catch(() => {
+      throw new Error(`Failed to find user.`)
+    })
+
+    if (!exist) throw new Error(`Usuário com ID: ${id} não existe.`)
+
+    await models.user.destroy({ where: { id } }).catch(() => {
+      throw new Error(`Failed to remove user.`)
+    })
+
+    return (`Usuário ${id} removido com sucesso.`)
+  }
 }
-
-services.one = async (id) => {
-  return models.user.findById(id)
-}
-
-services.create = async (name, email, password) => {
-  const newUser = await models.user.build({ name, email, password })
-
-  return newUser.save()
-}
-
-services.update = async (id, name, email, password) => {
-  return models.user.update({ name, email, password }, { where: { id } })
-}
-
-services.remove = async (id) => {
-  return models.user.destroy({ where: { id } })
-}
-
-module.exports = services

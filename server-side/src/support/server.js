@@ -5,7 +5,7 @@ const helmet = require('helmet')
 const exclusions = require('./middlewares/jwt/exclusions')
 const jwt = require('./middlewares/jwt')
 
-const models = require('../infra/database/sequelize/models')
+const models = require('./sequelize/models')
 models.sequelize.sync()
   .then(() => console.log('database/sequelize: ok'))
   .catch(() => console.log('database/sequelize: erro'))
