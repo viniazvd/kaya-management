@@ -1,4 +1,4 @@
-const models = require('../../../support/sequelize/models')
+const models = require('../../../infra/sequelize/models')
 const tokenGenerator = require('../../../support/sign-token')
 const encrypt = require('../../../support/encrypt')
 const isValid = require('../../../support/compare-passwords')

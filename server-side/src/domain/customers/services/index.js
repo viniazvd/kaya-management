@@ -1,4 +1,4 @@
-const models = require('../../../support/sequelize/models')
+const models = require('../../../infra/sequelize/models')
 
 module.exports = {
   async all () {
