@@ -1,4 +1,4 @@
-const { all, one, create, update, remove } = require('./controller')
+const { all, one, create, update, remove } = require('./middlewares')
 
 module.exports = server => {
   server.get('/api/user/', all)
