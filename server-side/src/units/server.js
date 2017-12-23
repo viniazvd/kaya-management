@@ -4,7 +4,7 @@ const bodyParser = require('body-parser')
 const cors = require('../support/middlewares/cors')
 const exclusions = require('../support/middlewares/jwt/exclusions')
 const jwt = require('../support/middlewares/jwt')
-const { clientErrorHandler, logErrors, errorHandler } = require('../support/middlewares/errors')
+const { logErrors, errorHandler } = require('../support/middlewares/errors')
 
 const models = require('../infra/sequelize/models')
 models.sequelize.sync()
@@ -18,7 +18,7 @@ app.use(cors)
 app.use(bodyParser.json())
 app.use(jwt({ exclusions }))
 
-app.use(clientErrorHandler)
+// app.use(clientErrorHandler)
 app.use(logErrors)
 app.use(errorHandler)
 
