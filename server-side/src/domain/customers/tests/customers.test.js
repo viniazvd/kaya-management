@@ -8,15 +8,12 @@ test.beforeEach(t => models.user.destroy({truncate: true}))
 test.after.always(t => models.user.destroy({truncate: true}))
 
 test.serial('list user', async t => {
-  const userTest1 = { name: 'vinitest1', email: 'emailtest1@gmail.com', password: '123' }
-  const userTest2 = { name: 'vinitest2', email: 'emailtest2@gmail.com', password: '123' }
-  const newUser1 = await models.user.build(userTest1)
-  const newUser2 = await models.user.build(userTest2)
-  await newUser1.save()
-  await newUser2.save()
+  const userTest = { name: 'vinitest1', email: 'emailtest1@gmail.com', password: '123' }
+  const newUser = await models.user.build(userTest)
+  await newUser.save()
 
   const list = await models.user.findAndCountAll()
-  t.is(list.count, 2)
+  t.is(list.count, 1)
 })
 
 test.serial('create user', async t => {
