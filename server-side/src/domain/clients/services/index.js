@@ -2,42 +2,42 @@ const models = require('../../../infra/sequelize/models')
 
 module.exports = {
   async all () {
-    const users = await models.Client.findAll().catch(() => {
-      throw new Error(`Failed to find all users.`)
+    const clients = await models.Client.findAll().catch(() => {
+      throw new Error(`Failed to find all clients.`)
     })
 
-    return { users }
+    return { clients }
   },
 
   async one (id) {
-    const user = await models.Client.findById(id).catch(() => {
-      throw new Error(`Failed to find user.`)
+    const client = await models.Client.findById(id).catch(() => {
+      throw new Error(`Failed to find client.`)
     })
 
-    if (!user) throw new Error(`Usuário com ID: ${id} não existe.`)
+    if (!client) throw new Error(`Usuário com ID: ${id} não existe.`)
 
-    return { user }
+    return { client }
   },
 
   async create (name, email, password) {
-    const newUser = await models.Client.build({ name, email, password })
+    const newClient = await models.Client.build({ name, email, password })
 
-    await newUser.save().catch(() => {
-      throw new Error(`Failed to find all users.`)
+    await newClient.save().catch(() => {
+      throw new Error(`Failed to create client.`)
     })
 
-    return ({ newUser })
+    return ({ newClient })
   },
 
   async update (id, name, email, password) {
     const exist = await models.Client.findById(id).catch(() => {
-      throw new Error(`Failed to find user.`)
+      throw new Error(`Failed to find client.`)
     })
 
     if (!exist) throw new Error(`Usuário com ID: ${id} não existe.`)
 
     await models.Client.update({ name, email, password }, { where: { id } }).catch(() => {
-      throw new Error(`Failed to update user.`)
+      throw new Error(`Failed to update client.`)
     })
 
     return (`Usuário alterado com sucesso.`)
@@ -45,13 +45,13 @@ module.exports = {
 
   async remove (id) {
     const exist = await models.Client.findById(id).catch(() => {
-      throw new Error(`Failed to find user.`)
+      throw new Error(`Failed to find client.`)
     })
 
     if (!exist) throw new Error(`Usuário com ID: ${id} não existe.`)
 
     await models.Client.destroy({ where: { id } }).catch(() => {
-      throw new Error(`Failed to remove user.`)
+      throw new Error(`Failed to remove client.`)
     })
 
     return (`Usuário ${id} removido com sucesso.`)
