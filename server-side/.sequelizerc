@@ -1,7 +1,8 @@
 const path = require('path')
 
 module.exports = {
-  'migrations-path': path.resolve('./src/infra/database/sequelize', 'migrations'),
-  'models-path': path.resolve('./src/infra/database/sequelize', 'models'),
-  'seeders-path': path.resolve('./src/infra/database/sequelize', 'seeders')
+  'config': path.resolve('./src/infra/sequelize', 'config'),
+  'migrations-path': path.resolve('./src/infra/sequelize', 'migrations'),
+  'models-path': path.resolve('./src/infra/sequelize', 'models'),
+  'seeders-path': path.resolve('./src/infra/sequelize', 'seeders')
 }
