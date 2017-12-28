@@ -2,7 +2,7 @@ const models = require('../../../infra/sequelize/models')
 
 module.exports = {
   async all () {
-    const users = await models.user.findAll().catch(() => {
+    const users = await models.Client.findAll().catch(() => {
       throw new Error(`Failed to find all users.`)
     })
 
@@ -10,7 +10,7 @@ module.exports = {
   },
 
   async one (id) {
-    const user = await models.user.findById(id).catch(() => {
+    const user = await models.Client.findById(id).catch(() => {
       throw new Error(`Failed to find user.`)
     })
 
@@ -20,7 +20,7 @@ module.exports = {
   },
 
   async create (name, email, password) {
-    const newUser = await models.user.build({ name, email, password })
+    const newUser = await models.Client.build({ name, email, password })
 
     await newUser.save().catch(() => {
       throw new Error(`Failed to find all users.`)
@@ -30,13 +30,13 @@ module.exports = {
   },
 
   async update (id, name, email, password) {
-    const exist = await models.user.findById(id).catch(() => {
+    const exist = await models.Client.findById(id).catch(() => {
       throw new Error(`Failed to find user.`)
     })
 
     if (!exist) throw new Error(`Usuário com ID: ${id} não existe.`)
 
-    await models.user.update({ name, email, password }, { where: { id } }).catch(() => {
+    await models.Client.update({ name, email, password }, { where: { id } }).catch(() => {
       throw new Error(`Failed to update user.`)
     })
 
@@ -44,13 +44,13 @@ module.exports = {
   },
 
   async remove (id) {
-    const exist = await models.user.findById(id).catch(() => {
+    const exist = await models.Client.findById(id).catch(() => {
       throw new Error(`Failed to find user.`)
     })
 
     if (!exist) throw new Error(`Usuário com ID: ${id} não existe.`)
 
-    await models.user.destroy({ where: { id } }).catch(() => {
+    await models.Client.destroy({ where: { id } }).catch(() => {
       throw new Error(`Failed to remove user.`)
     })
 
