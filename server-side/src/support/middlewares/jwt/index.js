@@ -6,7 +6,7 @@ module.exports = (deps) => {
       const token = req.headers['x-access-token']
 
       if (!token) {
-        res.send(403).send({ error: 'Token não fornecido' })
+        res.status(403).send({ error: 'Token não fornecido' })
         return false
       }
 
