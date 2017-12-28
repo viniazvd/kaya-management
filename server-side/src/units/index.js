@@ -1,8 +1,8 @@
-const customer = require('./customer')
+const client = require('./client')
 const auth = require('./auth')
 
 const routes = (server) => {
-  customer(server)
+  client(server)
   auth(server)
 }
 

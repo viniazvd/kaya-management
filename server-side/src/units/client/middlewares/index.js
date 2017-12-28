@@ -1,4 +1,4 @@
-const { services } = require('../../../domain').customers
+const { services } = require('../../../domain').clients
 
 const [all, one, create, update, remove] = ['all', 'one', 'create', 'update', 'remove']
   .map(middlewares => require(`./${middlewares}`))
