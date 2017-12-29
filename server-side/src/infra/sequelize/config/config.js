@@ -10,7 +10,7 @@ module.exports = {
   test: {
     username: process.env.USERNAME,
     password: process.env.PASSWORD,
-    database: process.env.DATABASE_TEST,
+    database: 'dbkaya_test',
     host: process.env.HOST,
     dialect: 'postgres',
     logging: false
