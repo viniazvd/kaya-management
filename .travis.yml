@@ -13,7 +13,7 @@ postgres:
   password: root
 before_script:
   - psql -c 'create database dbkaya_test;' -U postgres
-  - db:migrate
+  - sequelize db:migrate
 before_install:
   - cd server-side 
 install:
