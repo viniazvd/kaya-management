@@ -8,10 +8,10 @@ module.exports = {
     logging: false
   },
   test: {
-    username: process.env.USERNAME,
-    password: process.env.PASSWORD,
+    username: 'admin01',
+    password: 'root',
     database: 'dbkaya_test',
-    host: process.env.HOST,
+    host: '127.0.0.1',
     dialect: 'postgres',
     logging: false
   },
