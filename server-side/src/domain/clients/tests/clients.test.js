@@ -25,7 +25,7 @@ test.serial('create user', async t => {
 })
 
 test.serial('remove user', async t => {
-  const userTest = { email: 'remover@gmail.com' }
+  const userTest = { email: 'remover@gmail.com', password: '123' }
   const newUser = await models.Client.build(userTest)
   await newUser.save()
 
