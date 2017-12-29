@@ -4,5 +4,4 @@ node_js:
 cache:
   directories:
     - node_modules
- install:
-  - cd server-side && npm i
+before_script: cd project
