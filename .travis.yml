@@ -5,7 +5,9 @@ cache:
   directories:
     - node_modules
 before_script:
-  - psql -c 'create database dbkaya_test;' -U postgres && db:migrate && db:seed:all
+  - psql -c 'create database dbkaya_test;' -U postgres
+  - node_modules/.bin/sequelize db:migrate
+  - node_modules/.bin/sequelize db:seed:all
 before_install:
   - cd server-side 
 install:
