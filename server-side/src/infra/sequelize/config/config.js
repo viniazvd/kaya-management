@@ -8,7 +8,7 @@ module.exports = {
     logging: false
   },
   test: {
-    username: 'admin01',
+    username: 'postgres',
     password: 'root',
     database: 'dbkaya_test',
     host: '127.0.0.1',
