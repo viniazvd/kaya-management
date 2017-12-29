@@ -7,10 +7,11 @@ module.exports = {
           date: '01/01/2018',
           hour: '18:30',
           price: '200,00',
+          description: 'bla bla bla...',
           createdAt: new Date(),
           updatedAt: new Date(),
-          id_client: '6',
-          id_activity: '1'
+          ActivityId: 1,
+          ClientId: 1
         }
       ], {})
   },
