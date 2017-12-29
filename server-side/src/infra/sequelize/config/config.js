@@ -12,7 +12,8 @@ module.exports = {
     password: process.env.PASSWORD,
     database: process.env.DATABASE_TEST,
     host: process.env.HOST,
-    dialect: process.env.DIALECT
+    dialect: process.env.DIALECT,
+    logging: false
   },
   production: {
     username: process.env.USERNAME,
