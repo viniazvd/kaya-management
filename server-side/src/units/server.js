@@ -4,7 +4,8 @@ const bodyParser = require('body-parser')
 const cors = require('../support/middlewares/cors')
 const exclusions = require('../support/middlewares/jwt/exclusions')
 const jwt = require('../support/middlewares/jwt')
-const { logErrors, errorHandler } = require('../support/middlewares/errors')
+const { logErrors } = require('../support/middlewares/errors')
+// const register = require('../support/middlewares/register')
 
 const app = express()
 
@@ -13,9 +14,9 @@ app.use(cors)
 app.use(bodyParser.json())
 app.use(jwt({ exclusions }))
 
-// app.use(clientErrorHandler)
 app.use(logErrors)
-app.use(errorHandler)
+
+// register(app)(helmet(), cors, bodyParser.json(), jwt({ exclusions }), logErrors)
 
 // rotas
 require('../units')(app)
