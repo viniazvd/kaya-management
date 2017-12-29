@@ -14,7 +14,7 @@ activity
 -id
 -name
 
-task (one-to-one)
+task
 -id
 -name
 -date
