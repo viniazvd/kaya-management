@@ -7,10 +7,10 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.STRING
   }, { underscore: true })
 
-  Task.associate = models => {
-    Task.belongsTo(models.Client, { foreignKey: 'id_client', targetKey: 'id' })
-    Task.belongsTo(models.Activity, { foreignKey: 'id_activity', targetKey: 'id' })
-  }
+  // Task.associate = models => {
+  //   Task.belongsTo(models.Client)
+  //   Task.belongsTo(models.Activity)
+  // }
 
   return Task
 }
