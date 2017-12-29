@@ -4,8 +4,8 @@ const test = require('ava')
 
 const models = require('../../../infra/sequelize/models')
 
-test.beforeEach(t => models.Client.destroy({truncate: true}))
-test.after.always(t => models.Client.destroy({truncate: true}))
+test.beforeEach(t => models.Client.destroy({ truncate: true, cascade: true }))
+test.after.always(t => models.Client.destroy({ truncate: true, cascade: true }))
 
 test.serial('list user', async t => {
   const userTest = { name: 'vinitest1', email: 'emailtest1@gmail.com', password: '123' }

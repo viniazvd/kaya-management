@@ -4,8 +4,8 @@ const test = require('ava')
 
 const models = require('../../../infra/sequelize/models')
 
-test.beforeEach(t => models.Activity.destroy({truncate: true}))
-test.after.always(t => models.Activity.destroy({truncate: true}))
+test.beforeEach(t => models.Activity.destroy({ truncate: true, cascade: true }))
+test.after.always(t => models.Activity.destroy({ truncate: true, cascade: true }))
 
 test.serial('list activity', async t => {
   const activityTest = { name: 'nameX' }
