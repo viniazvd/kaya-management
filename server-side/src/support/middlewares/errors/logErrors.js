@@ -1,4 +1,5 @@
 module.exports = (err, req, res, next) => {
   console.error(err.stack)
-  next(err)
+  res.status(500).json({ error: err.message })
+  // next(err)
 }
