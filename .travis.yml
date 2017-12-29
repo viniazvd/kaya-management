@@ -2,22 +2,17 @@ language: node_js
 node_js:
   - "8"
 cache:
+  npm: true
   directories:
     - node_modules
-services:
-  - postgresql
-postgres:
-  adapter: postgresql
-  database: dbkaya_test
-  username: admin01
-  password: root
-before_script:
-  - psql -c 'create database dbkaya_test;' -U postgres
-  - sequelize db:migrate
-before_install:
-  - cd server-side 
 install:
   - npm install
+before_script:
+  - psql -c 'create database dbkaya_test;' -U postgres
+services:
+  - postgresql
+before_install:
+  - cd server-side 
 script:
   - npm test
 
