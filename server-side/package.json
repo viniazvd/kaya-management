@@ -1,7 +1,6 @@
 {
   "name": "server-side",
   "version": "1.0.0",
-  "private": true,
   "scripts": {
     "start": "node ./bin/www",
     "db:refresh": "sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:all",
