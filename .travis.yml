@@ -4,15 +4,20 @@ node_js:
 cache:
   directories:
     - node_modules
+services:
+  - postgresql
+postgres:
+  adapter: postgresql
+  database: dbkaya_test
+  username: admin01
+  password: root
 before_script:
   - psql -c 'create database dbkaya_test;' -U postgres
-  - node_modules/.bin/sequelize db:migrate
-  - node_modules/.bin/sequelize db:seed:all
+  - db:migrate
 before_install:
   - cd server-side 
 install:
   - npm install
 script:
   - npm test
-services:
-  - postgresql
+
