@@ -3,5 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING
   })
 
+  Activity.associate = models => Activity.hasMany(models.Task)
+
   return Activity
 }
