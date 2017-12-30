@@ -1,4 +1,12 @@
 {
+  "dev": {
+    "driver": "pg",
+    "user": "admin01",
+    "password": "root",
+    "host": "localhost",
+    "database": "dbkaya_test",
+    "schema": "postgres"
+  },
   "pg": {
     "driver": "pg",
     "user": "admin01",
