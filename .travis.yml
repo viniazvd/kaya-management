@@ -16,9 +16,9 @@ install:
   - npm install
   - npm install -g sequelize-cli
   - npm install -g codecov
-after_success:
+# after_success:
   # - bash <(curl -s https://codecov.io/bash)
-	- './node_modules/.bin/nyc report --reporter=text-lcov | ./node_modules/.bin/coveralls'
+	# - './node_modules/.bin/nyc report --reporter=text-lcov | ./node_modules/.bin/coveralls'
 before_script:
   - psql -c 'create database dbkaya_test;' -U postgres
   - psql -c "CREATE USER admin01 WITH PASSWORD 'root';" -U postgres
@@ -26,5 +26,5 @@ before_script:
   - sequelize db:migrate
 script:
   - npm test
-  - codecov 
+  # - codecov 
 
