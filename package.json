@@ -5,28 +5,7 @@
     "start": "node ./bin/www",
     "db:refresh": "sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:all",
     "migrate": "sequelize db:migrate",
-    "test": "ava --verbose --serial",
-    "build": "BABEL_ENV=production babel --out-dir=dist index.js",
-    "report": "nyc report --reporter=html"
-  },
-  "babel": {
-    "presets": [
-      "es2015"
-    ],
-    "plugins": [
-      "transform-runtime"
-    ],
-    "ignore": "test.js",
-    "env": {
-      "development": {
-        "sourceMaps": "inline"
-      }
-    }
-  },
-  "ava": {
-    "require": [
-      "babel-core/register"
-    ]
+    "test": "ava --verbose --serial"
   },
   "author": "Vinicius Azevedo <viniazvd@gmail.com>",
   "license": "ISC",
