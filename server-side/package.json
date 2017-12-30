@@ -5,7 +5,28 @@
     "start": "node ./bin/www",
     "db:refresh": "sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:all",
     "migrate": "sequelize db:migrate",
-    "test": "ava --verbose --serial"
+    "test": "nyc ava --verbose --serial",
+    "build": "BABEL_ENV=production babel --out-dir=dist index.js",
+    "report": "nyc report --reporter=html"
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ],
+    "plugins": [
+      "transform-runtime"
+    ],
+    "ignore": "test.js",
+    "env": {
+      "development": {
+        "sourceMaps": "inline"
+      }
+    }
+  },
+  "ava": {
+    "require": [
+      "babel-core/register"
+    ]
   },
   "author": "Vinicius Azevedo <viniazvd@gmail.com>",
   "license": "ISC",
@@ -29,12 +50,14 @@
   },
   "devDependencies": {
     "ava": "^0.24.0",
+    "coveralls": "^3.0.0",
     "eslint": "^4.8.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "nyc": "^11.4.1"
   }
 }
