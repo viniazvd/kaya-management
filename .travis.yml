@@ -13,13 +13,13 @@ before_install:
   - cd server-side 
 install:
   - npm install
-  - npm install -g db-migrate
-  - npm install db-migrate-pg
+  # - npm install -g db-migrate
+  # - npm install db-migrate-pg
 before_script:
   - psql -c 'create database dbkaya_test;' -U postgres
   - psql -c "CREATE USER admin01 WITH PASSWORD 'root';" -U postgres
-  - db-migrate up:all
   # - cd src/infra/sequelize db:migrate
+  # - db-migrate up:all
 script:
   - npm test
 
