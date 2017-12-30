@@ -26,4 +26,5 @@ before_script:
   - sequelize db:migrate
 script:
   - npm test
+  - codecov
 
