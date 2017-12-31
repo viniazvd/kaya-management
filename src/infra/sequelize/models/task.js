@@ -7,10 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.STRING
   }, { underscore: true })
 
-  // Task.associate = models => {
-  //   Task.belongsTo(models.Client)
-  //   Task.belongsTo(models.Activity)
-  // }
+  Task.associate = models => Task.belongsTo(models.User)
 
   return Task
 }
