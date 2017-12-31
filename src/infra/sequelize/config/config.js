@@ -2,7 +2,7 @@ module.exports = {
   development: {
     username: 'admin01',
     password: 'root',
-    database: 'dbkaya_test',
+    database: 'dbkaya',
     host: '127.0.0.1',
     dialect: 'postgres',
     logging: false
