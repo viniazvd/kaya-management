@@ -19,8 +19,8 @@ module.exports = {
     return { task }
   },
 
-  async create (name, date, hour, price, description, id_client, id_activity) {
-    const newTask = await models.Task.build({ name, date, hour, price, description, id_client, id_activity })
+  async create (name, date, hour, price, description, id_user, id_activity) {
+    const newTask = await models.Task.build({ name, date, hour, price, description, id_user, id_activity })
 
     await newTask.save().catch(() => {
       throw new Error(`Failed to create task.`)

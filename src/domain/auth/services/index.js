@@ -6,7 +6,7 @@ const mailer = require('../../../infra/mailer')
 
 module.exports = {
   async signup (name, email, password) {
-    const exist = await models.Client.findOne({ where: { email } })
+    const exist = await models.User.findOne({ where: { email } })
 
     if (exist) throw new Error(`${email} já existe. Tente se registrar com outro e-mail.`)
 
@@ -14,7 +14,7 @@ module.exports = {
       throw new Error(`Failed to encrypt.`)
     })
 
-    const newUser = await models.Client.build({ name, email, password: passwordEncrypted })
+    const newUser = await models.User.build({ name, email, password: passwordEncrypted })
     await newUser.save().catch(() => {
       throw new Error(`Failed to register user.`)
     })
@@ -23,7 +23,7 @@ module.exports = {
   },
 
   async signin (email, password) {
-    const user = await models.Client.findOne({ where: { email } })
+    const user = await models.User.findOne({ where: { email } })
 
     if (!user) throw new Error(`${email} não existe. Tente logar com outro e-mail.`)
 
@@ -37,7 +37,7 @@ module.exports = {
   },
 
   changePassword: async (token, email, newPassword) => {
-    const user = await models.Client.findOne({ where: { email } })
+    const user = await models.User.findOne({ where: { email } })
 
     if (!user) throw new Error(`${email} não existe. Tente usar outro e-mail.`)
 
@@ -49,7 +49,7 @@ module.exports = {
       throw new Error(`Failed to encrypt.`)
     })
 
-    await models.Client.update({ password: passwordEncrypted }, { where: { email } }).catch(() => {
+    await models.User.update({ password: passwordEncrypted }, { where: { email } }).catch(() => {
       throw new Error(`Failed to update password.`)
     })
 
@@ -57,7 +57,7 @@ module.exports = {
   },
 
   forgotPassword: async (email) => {
-    const user = await models.Client.findOne({ where: { email } })
+    const user = await models.User.findOne({ where: { email } })
 
     if (!user) throw new Error(`${email} não existe. Tente usar outro e-mail.`)
 
