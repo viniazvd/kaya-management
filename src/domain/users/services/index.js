@@ -1,3 +1,4 @@
+const encrypt = require('../../../support/encrypt')
 const models = require('../../../infra/sequelize/models')
 
 module.exports = {
@@ -20,13 +21,20 @@ module.exports = {
   },
 
   async create (name, email, password, role) {
-    const newUser = await models.User.build({ name, email, password, role })
+    const exist = await models.User.findOne({ where: { email } })
 
-    await newUser.save().catch(() => {
-      throw new Error(`Failed to create user.`)
+    if (exist) throw new Error(`${email} já existe. Tente se registrar com outro e-mail.`)
+
+    const passwordEncrypted = await encrypt(password).catch(() => {
+      throw new Error(`Failed to encrypt.`)
     })
 
-    return ({ newUser })
+    const newUser = await models.User.build({ name, email, password: passwordEncrypted })
+    await newUser.save().catch(() => {
+      throw new Error(`Failed to register user.`)
+    })
+
+    return ({ user: newUser })
   },
 
   async update (id, name, email, password, role) {

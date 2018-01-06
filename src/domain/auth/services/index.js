@@ -5,7 +5,7 @@ const isValid = require('../../../support/compare-passwords')
 const mailer = require('../../../infra/mailer')
 
 module.exports = {
-  async signup (name, email, password) {
+  async signup (name, email, password, role) {
     const exist = await models.User.findOne({ where: { email } })
 
     if (exist) throw new Error(`${email} já existe. Tente se registrar com outro e-mail.`)
@@ -14,7 +14,7 @@ module.exports = {
       throw new Error(`Failed to encrypt.`)
     })
 
-    const newUser = await models.User.build({ name, email, password: passwordEncrypted })
+    const newUser = await models.User.build({ name, email, password: passwordEncrypted, role })
     await newUser.save().catch(() => {
       throw new Error(`Failed to register user.`)
     })
@@ -33,7 +33,7 @@ module.exports = {
 
     const token = tokenGenerator(user)
 
-    return { token: token }
+    return { user: { email, password }, token: token }
   },
 
   changePassword: async (token, email, newPassword) => {
@@ -57,7 +57,9 @@ module.exports = {
   },
 
   forgotPassword: async (email) => {
-    const user = await models.User.findOne({ where: { email } })
+    const user = await models.User.findOne({ where: { email } }).catch(() => {
+      throw new Error(`Failed to found email.`)
+    })
 
     if (!user) throw new Error(`${email} não existe. Tente usar outro e-mail.`)
 
